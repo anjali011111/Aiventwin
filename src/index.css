@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- AEVITWIN brand tokens (single source of truth) ---------- */
+:root {
+  --aevitwin-gradient-1: #AEE1FC;
+  --aevitwin-gradient-2: #60ABFB;
+  --aevitwin-gradient-3: #5170FD;
+  --aevitwin-gradient-4: #4636FC;
+
+  --aevitwin-gradient: linear-gradient(
+    120deg,
+    #AEE1FC 0%,
+    #60ABFB 35%,
+    #5170FD 68%,
+    #4636FC 100%
+  );
+
+  --aevitwin-background: #F7FAFF;
+  --aevitwin-surface: #FFFFFF;
+  --aevitwin-text: #14213D;
+  --aevitwin-muted: #61718B;
+  --aevitwin-border: #DCE7F5;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { background: var(--aevitwin-background); color: var(--aevitwin-text); @apply font-sans antialiased; }
+  :focus-visible { outline: 2px solid var(--aevitwin-gradient-3); outline-offset: 2px; border-radius: 6px; }
+  h1, h2, h3 { @apply tracking-tight; }
+}
+
+@layer components {
+  /* One flat clinical surface: white, thin border, small radius, no shadow */
+  .card { background: var(--aevitwin-surface); border: 1px solid var(--aevitwin-border); @apply rounded-2xl; }
+
+  /* The ONLY place the brand gradient is painted. Use sparingly: primary CTAs, selected states. */
+  .bg-brand { background-image: var(--aevitwin-gradient); }
+  .btn-brand {
+    background-image: var(--aevitwin-gradient);
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(20, 33, 61, .45);   /* keeps the label legible over the light end */
+  }
+  .btn-brand:hover { filter: brightness(.96); }
+
+  .eyebrow { @apply text-sm font-semibold text-brand-4; }
+  .scroll-thin::-webkit-scrollbar { height: 6px; width: 6px; }
+  .scroll-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+}
+
+@keyframes flashRow { from { background: rgba(96, 171, 251, .22); } to { background: transparent; } }
+.flash { animation: flashRow 1.6s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
